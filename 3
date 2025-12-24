@@ -1,0 +1,56 @@
+// משתנים גלובליים לגישה נוחה לאלמנטים
+const authSection = document.getElementById('auth-section');
+const dashboardSection = document.getElementById('dashboard-section');
+const passwordInput = document.getElementById('password-input');
+const authTitle = document.getElementById('auth-title');
+const authDesc = document.getElementById('auth-desc');
+const noteArea = document.getElementById('note-area');
+
+// בדיקה ראשונית: האם כבר הוגדרה סיסמה בעבר?
+window.onload = () => {
+    if (localStorage.getItem('userPassword')) {
+        authTitle.innerText = "התחברות";
+        authDesc.innerText = "הכנס את הסיסמה שבחרת:";
+    }
+};
+
+function handleAuth() {
+    const inputPass = passwordInput.value;
+    const savedPass = localStorage.getItem('userPassword');
+
+    if (!savedPass) {
+        // הגדרת סיסמה בפעם הראשונה
+        if (inputPass.length < 4) {
+            alert("נא לבחור סיסמה עם לפחות 4 תווים");
+            return;
+        }
+        localStorage.setItem('userPassword', inputPass);
+        alert("הסיסמה נשמרה בהצלחה!");
+        showDashboard();
+    } else {
+        // אימות סיסמה קיימת
+        if (inputPass === savedPass) {
+            showDashboard();
+        } else {
+            document.getElementById('error-msg').innerText = "סיסמה שגויה, נסה שוב.";
+        }
+    }
+}
+
+function showDashboard() {
+    authSection.style.display = 'none';
+    dashboardSection.style.display = 'block';
+    // טעינת הטקסט שנשמר בעבר (אם קיים)
+    noteArea.value = localStorage.getItem('userNotes') || "";
+}
+
+function saveNote() {
+    localStorage.setItem('userNotes', noteArea.value);
+    const status = document.getElementById('save-status');
+    status.innerText = "נשמר בהצלחה!";
+    setTimeout(() => status.innerText = "", 2000);
+}
+
+function logout() {
+    location.reload(); // פשוט מרענן את הדף כדי לחזור למסך הנעילה
+}
