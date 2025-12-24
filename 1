@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>הלוח האישי שלי</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div id="auth-section">
+            <h2 id="auth-title">יצירת סיסמה ראשונית</h2>
+            <p id="auth-desc">נראה שזו הפעם הראשונה שלך. בחר סיסמה:</p>
+            <input type="password" id="password-input" placeholder="הכנס סיסמה...">
+            <button onclick="handleAuth()">כניסה</button>
+            <p id="error-msg" style="color: red;"></p>
+        </div>
+
+        <div id="dashboard-section" style="display: none;">
+            <h2>ברוך הבא ללוח המכוונים שלך</h2>
+            <textarea id="note-area" placeholder="כתוב כאן משהו..."></textarea>
+            <br>
+            <button onclick="saveNote()">שמור תוכן</button>
+            <button onclick="logout()" class="secondary">התנתק</button>
+            <p id="save-status"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
